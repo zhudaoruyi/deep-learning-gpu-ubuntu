@@ -1,6 +1,6 @@
-# Getting Started
+# Ubuntu 16.04 安装深度学习环境 GPU 加速版
 
-## Installation
+## 安装包
 
 - Cuda
 - CuDNN
@@ -11,15 +11,15 @@
 - Pandas
 - H5py
 
-## Install dependencies
+## 安装依赖包
 
-1. Update apt-get
+1. 系统更新
 
    ```
     sudo apt-get update
    ```
 
-2. Install dependencies
+2. 安装依赖包
 
    ```
     sudo apt-get install libglu1-mesa libxi-dev libxmu-dev -y
@@ -31,65 +31,65 @@
     sudo apt-get install libhdf5-serial-dev -y
    ```
 
-## Install CUDA
+## 安装 CUDA
 
 Cuda is architecture platform supporting parallel computing created by Nvidia. It is essentially a software layer between the CPU and the GPU. Cuda is well-suited for both graphical applications like 2D or 3D modelling, graphic intensive video games as well as computational applications in biology or in crypography. Interestingly, machine learning applications can be both graphically as well as computationally intensive. Hence, every library or framework that we are going to talk about comes with cuda support. The cuda toolkit has inbuilt libraries performing important computations involving linear algebra, fast fourier transforms etc. Cuda makes single threaded workflow on CPU and accelarated parallel processing on GPU possible. The cuda execution model has three parts- grids, blocks and threads.The grid runs on a device(GPU), blocks run on multi processors and threads run on scalar processor(cores). With cuda, hardware resource allotment for thousands of threads running in hundreds or thousands of GPU cores over millions or even billions of transistors is made extremely efficient. Cuda essentially splits up code into threads by itself and assigns them to GPU cores thus highly speeding up computing.
 
-### Deb file method
+### 通过官方 deb 文件安装
 
-1. Check if you have nvidia graphic card by running the following command in the terminal
+1. 在命令行中运行以下命令，检查你的系统是否有英伟达的图形处理芯片。
 
    ```
     lspci -nnk | grep -i nvidia
    ```
 
-   If there is no output then you can skip to installing scipy.
+   如果此处没有输出，就请先安装 scipy 。
 
-2. Goto [https://developer.nvidia.com/cuda-downloads](https://developer.nvidia.com/cuda-downloads) and download the deb (local) file for your system. To check distribution run` uname -m && cat /etc/*release`
+2. 通过 [https://developer.nvidia.com/cuda-downloads](https://developer.nvidia.com/cuda-downloads) 这个链接，下载 deb 文件到你的本地.。通过运行 ` uname -m && cat /etc/*release` 检查版本
 
-3. Install repository meta-data
+3. 通过 dpkg 安装
 
    ```
     sudo dpkg -i cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
    ```
 
-   Update apt repository cache
+   更新系统安装程序
 
    ```
     sudo apt-get update
    ```
 
-   Install CUDA
+   安装 CUDA
 
    ```
     sudo apt-get install cuda
    ```
 
-4. Open .bashrc
+4. 配置系统环境 .bashrc
 
    ```
     nano ~/.bashrc
    ```
 
-   Add the following lines to the end of the file
+   将下行加入到配置文件中
 
    ```
     export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
    ```
 
-   Exit out of nano by pressing Ctrl+x then y and then enter Now run the following command
+   保存并退出编辑，运行
 
    ```
     source ~/.bashrc
    ```
 
-5. Verify driver installation
+5. 验证安装情况
 
    ```
     cat /proc/driver/nvidia/version
    ```
 
-   Verify cuda installation
+   确认 cuda 的版本
 
    ```
     nvcc -V
@@ -183,13 +183,13 @@ Use this method if the deb file method doesn't work.
     nvcc -V
    ```
 
-## Install cuDNN
+## 安装 cuDNN
 
 The cuDNN library provides highly tuned implemntation of standard deep learning routines such as convolution, poolinng, normalization, activation, optimization. CuDNN accelaration GPU performance for deep learning frameworks like Tensorflow , Theano, Caffe etc.
 
 1. Register for a nvidia developer account and head over to [https://developer.nvidia.com/cudnn](https://developer.nvidia.com/cudnn) and download cuDNN v5.1 for CUDA 8.0
 
-2. Unpack the file
+2. 解压文件
 
    ```
     tar -xzvf cudnn-8.0-linux-x64-v5.1.tgz
@@ -202,7 +202,7 @@ The cuDNN library provides highly tuned implemntation of standard deep learning 
     sudo cp cuda/include/cudnn.h /usr/local/cuda/include/
    ```
 
-## Set up Virtualenv
+## 设置运行环境
 
 1. Create virtual environment
 
@@ -228,7 +228,7 @@ The cuDNN library provides highly tuned implemntation of standard deep learning 
     deactivate
    ```
 
-## Install tensorflow
+## 安装 tensorflow
 
 Tensorflow is an open source library for end-to end machine learning apllications. It was developed by Google's Brain team and is written in python, C++, cuda. It is based on stateful dataflow graphs distributed over tensorflow sessions using multidimensional arrays called tensors. Tensorflow has inbuilt tensorboard for visualizing the graphs.
 
@@ -245,7 +245,7 @@ Tensorflow is an open source library for end-to end machine learning apllication
     (kerai)$ pip3 install --upgrade tensorflow-gpu
   ```
 
-## Install Keras
+## 安装 keras
 
 Keras is a essentially a model based library written in native python for building and deploying neural networks. It was too developed by a Google engineer. It can run over Theano or Tensorflow backend. The key feature of keras is its **readability** and **modularity**without diving into tensorflow or theano.
 
